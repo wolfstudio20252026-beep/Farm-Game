@@ -22,6 +22,17 @@ public class GameGrid : MonoBehaviour
 
     public bool creatingFields;
 
+    public Texture2D basicCursour, fieldCursour;
+
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
+
+    private void Awake()
+    {
+        Cursor.SetCursor(basicCursour, hotSpot, cursorMode);
+    }
+
+
     private void Start()
     {
         for (int i = 0; i < columnLength * rowLength; i++)
@@ -53,6 +64,8 @@ public class GameGrid : MonoBehaviour
                         Instantiate(field, hitted.transform.position, Quaternion.identity);
                         Destroy(hitted);
                     }
+
+                    Cursor.SetCursor(fieldCursour, hotSpot, cursorMode);
                 }
             }
         }
