@@ -27,6 +27,8 @@ public class GameGrid : MonoBehaviour
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
 
+    public GameObject goldSystem;
+    public int fieldsPrice;
     private void Awake()
     {
         Cursor.SetCursor(basicCursour, hotSpot, cursorMode);
@@ -58,13 +60,15 @@ public class GameGrid : MonoBehaviour
             {
                 if (creatingFields == true)
                 {
-                    if (_hit.transform.tag == "grid")
+                    if (_hit.transform.tag == "grid" && goldSystem.GetComponent<GoldSystem>().gold >= fieldsPrice)
                     {
                         hitted = _hit.transform.gameObject;
                         Instantiate(field, hitted.transform.position, Quaternion.identity);
                         Destroy(hitted);
+                        goldSystem.GetComponent<GoldSystem>().gold -= fieldsPrice;
                     }
 
+                    
                     Cursor.SetCursor(fieldCursour, hotSpot, cursorMode);
                 }
             }
