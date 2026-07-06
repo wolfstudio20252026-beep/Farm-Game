@@ -73,11 +73,23 @@ public class GameGrid : MonoBehaviour
                 }
             }
         }
+
+        if (Shop.beInShop || Product.isSowing)
+        {
+            creatingFields = false;
+            Cursor.SetCursor(basicCursour, hotSpot, cursorMode);
+        }
+        else
+        {
+            creatingFields = true;
+            Cursor.SetCursor(fieldCursour, hotSpot, cursorMode);
+        }
     }
 
     public void CreateFields()
     {
         creatingFields = true;
+        Cursor.SetCursor(fieldCursour, hotSpot, cursorMode);
     }
 
     public void returnToNormality()
